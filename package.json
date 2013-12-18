@@ -1,0 +1,12 @@
+{
+    "name": "dc-dashboard",
+    "description": "DC Dashboard",
+    "version": "0.0.1",
+    "private": true,
+    "dependencies": {
+        "express": "latest",
+        "jade": "latest",
+        "twitter" : "latest",
+        "socket.io" : "latest"
+    }
+}
