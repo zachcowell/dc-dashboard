@@ -1,7 +1,7 @@
-var Nationals = require('../models/nationals.js');
+var Tweets = require('../models/tweetmodel.js');
 
 exports.list = function(req, res) {
-	Nationals.find({ name_lower: req.params.name.toLowerCase() }, function (err, data) {
+	Tweets.find({  }, function (err, data) {
 	  if (err) return handleError(err);
 	  res.send(data);
 	})
