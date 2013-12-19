@@ -3,7 +3,7 @@ extends layout
 block body
     div.navbar.navbar-default.navbar-fixed-top
         div.navbar-header
-            a.navbar-brand(href='#') Babynames
+            a.navbar-brand(href='#') DC Dashboard
         .navbar-collapse.collapse
             ul.nav.navbar-nav
                 li.active
@@ -18,38 +18,17 @@ block body
     div.container(ng-controller='MainCtrl')
         .row
             .col-12.col-sm-12.col-lg-12
-                h3 Name comparison tool
+                h1 DC Dashboard
             .col-8.col-sm-8.col-lg-8
-                highchart(id='chart1' ng-show='ass' config='chartConfig')
-            .col-4.col-sm-4.col-lg-4
-                .well
-                    form(role='form')
-                        .form-group
-                          label(for='inputName') Name
-                          input.form-control.input-lg(ng-model='name' placeholder='Zachary')
-                        .form-group
-                          label(for='exampleInputPassword1') Years
-                          input.form-control.input-lg(ng-model='years' placeholder='100')
-                        .radio
-                          label
-                            input(type='radio', ng-model='gender', value='M', checked='checked')
-                            | Male
-                        .radio
-                          label
-                            input(type='radio', ng-model='gender', value='F')
-                            | Female
-                        .radio
-                          label
-                            input(type='radio', ng-model='gender', value='auto')
-                            | Auto (most results)
-                        button.btn.btn-default(ng-click='retrieveData()') Submit
-        
+               p(ng-repeat='c in stuff') {{c}}
     script(src='js/underscore-min.js')
     script(src='js/angular.min.js')
     script(src='js/angular-route.min.js')
     script(src='js/jquery.js')
     script(src='js/highcharts.js')
     script(src='js/highcharts-ng.min.js')
+    script(src='js/socket.io.js')
+    script(src='js/socket.js')
     script(src='js/app.js')
     script(src='js/services.js')
     script(src='js/controllers.js')
