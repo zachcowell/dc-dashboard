@@ -4,13 +4,14 @@
 
 angular.module('myApp.controllers', []).
   controller('MainCtrl', function ($scope, socket, $routeParams, $http) {
-      $scope.stuff=[];
-      //console.log(socket);
-      socket.on('data',function(data,ev){ 
-        console.log(data);
-        //$scope.stuff.push(ev);
+      $scope.tweets=[];
+      
+      socket.on('data',function(data){ 
+        $scope.tweets.push(data);
+        if ($scope.tweets.length > 121 ) $scope.tweets = $scope.tweets.splice(11);
       });
-      //$scope.$on('socket:message', function (ev, data) {
-        //console.log(data);
-     //});
+      $scope.changeTweetDisplay = function(tweet) { 
+        $scope.tweetDisplay = tweet.text; 
+        $scope.user = '@' + tweet.user.screen_name;
+      };
   });

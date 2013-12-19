@@ -5,12 +5,19 @@ var express = require('express'),
 	//api = require('./routes/api.js'),
 	http = require('http'),
 	path = require('path'),
+	_ = require('underscore'),
 	app = module.exports = express(),
 	server = http.createServer(app),
 	io = socketIo.listen(server,{ log: false }),
 	util = require('util'),
 	Twit = require('twit'),
 	Instagram = require('instagram-node-lib');
+
+var tweetStack = [];
+
+io.sockets.on('connection', function(socket) { 
+    _.each(tweetStack, function(t){ socket.emit('data',t); });
+});
 
 /*
 var InstagramWorker = function (){
@@ -31,7 +38,11 @@ var TwitterWorker = function () {
 	var T = new Twit({ consumer_key:'D8g2hursTwtrTZlgiu7JwA', consumer_secret:'rPraYI7YgWPhrJJxSXtBHHXkJ0UyyooL0CxyRgCtw', access_token:'339061245-ZUr76Hf6QnLt6Vq8XzqGGIpACWDSurvuMiYDuccD', access_token_secret:'GG88Bjiwm378Xh5rk50VZNRiiYby6JcT0Rz8u2vB8'});
 	var DC = ['-77.222069','38.793786','-76.832489','39.030227']; //setup DC bounding box
 	var stream = T.stream('statuses/filter', { locations: DC })
-	stream.on('tweet', function (tweet) { io.sockets.emit('data',tweet); });
+	stream.on('tweet', function (tweet) { 
+		io.sockets.emit('data',tweet); 
+		if (tweetStack.length > 88 ) tweetStack = tweetStack.splice(1);
+		tweetStack.push(tweet);
+	});
 }();
 
 app.configure(function(){

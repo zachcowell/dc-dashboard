@@ -18,14 +18,20 @@ block body
     div.container(ng-controller='MainCtrl')
         .row
             .col-12.col-sm-12.col-lg-12
-                h1 DC Dashboard
-            .col-8.col-sm-8.col-lg-8
-               p(ng-repeat='c in stuff') {{c}}
+                blockquote
+                    p {{tweetDisplay}}
+                        small {{user}}
+            .col-6.col-sm-6.col-lg-6
+                a(ng-repeat='t in tweets' href='https://twitter.com/{{t.user.screen_name}}' target='_blank')
+                    img(src='{{t.user.profile_image_url}}' ng-mouseover='changeTweetDisplay(t)')
+            .col-6.col-sm-6.col-lg-6
+
+
     script(src='js/underscore-min.js')
     script(src='js/angular.min.js')
     script(src='js/angular-route.min.js')
     script(src='http://cdn.leafletjs.com/leaflet-0.7/leaflet.js')
-    
+    script(src='js/angular-leaflet-directive.js')
     script(src='js/jquery.js')
     script(src='js/highcharts.js')
     script(src='js/highcharts-ng.min.js')

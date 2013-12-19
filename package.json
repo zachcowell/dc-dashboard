@@ -8,6 +8,7 @@
         "jade": "latest",
         "twitter" : "latest",
         "socket.io" : "latest",
-        "mongoose" : "latest"
+        "mongoose" : "latest",
+        "underscore" : "latest"
     }
 }
