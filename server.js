@@ -29,15 +29,9 @@ var InstagramWorker = function (){
 */
 var TwitterWorker = function () {
 	var T = new Twit({ consumer_key:'D8g2hursTwtrTZlgiu7JwA', consumer_secret:'rPraYI7YgWPhrJJxSXtBHHXkJ0UyyooL0CxyRgCtw', access_token:'339061245-ZUr76Hf6QnLt6Vq8XzqGGIpACWDSurvuMiYDuccD', access_token_secret:'GG88Bjiwm378Xh5rk50VZNRiiYby6JcT0Rz8u2vB8'});
-	var DC = ['-77.222069','38.793786','-76.832489','39.030227'];
+	var DC = ['-77.222069','38.793786','-76.832489','39.030227']; //setup DC bounding box
 	var stream = T.stream('statuses/filter', { locations: DC })
-	stream.on('tweet', function (tweet) {
-	  var user = tweet.user.screen_name;
-	  var txt = tweet.text;
-	  var str = '<'+user + '>: ' + txt;
-	  console.log(str);
-	  io.sockets.send(str);
-	});
+	stream.on('tweet', function (tweet) { io.sockets.emit('data',tweet); });
 }();
 
 app.configure(function(){
