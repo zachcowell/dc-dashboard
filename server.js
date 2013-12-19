@@ -1,13 +1,17 @@
 var express = require('express'),
 	mongoose = require('mongoose'),
 	routes = require('./routes'),
+	socketIo = require('socket.io'),
 	//api = require('./routes/api.js'),
 	http = require('http'),
 	path = require('path'),
 	app = module.exports = express(),
+	server = http.createServer(app),
+	io = socketIo.listen(server),
 	util = require('util'),
 	Twit = require('twit'),
 	Instagram = require('instagram-node-lib');
+
 /*
 var InstagramWorker = function (){
 	Instagram.set('client_id', '37e6d024fbce47cdbf2cb093d9968dee');
@@ -30,7 +34,9 @@ var TwitterWorker = function () {
 	stream.on('tweet', function (tweet) {
 	  var user = tweet.user.screen_name;
 	  var txt = tweet.text;
-	  console.log('<'+user + '>: ' + txt);
+	  var str = '<'+user + '>: ' + txt;
+	  console.log(str);
+	  io.sockets.send(str);
 	});
 }();
 
@@ -52,6 +58,7 @@ app.get('*', routes.index);/*
 app.get('/callback', function(req, res){
     var handshake =  Instagram.subscriptions.handshake(req, res);
 });*/
-http.createServer(app).listen(app.get('port'), function () {
+server.listen(app.get('port'), function () {
   console.log('Express server listening on port ' + app.get('port'));
 });
+
