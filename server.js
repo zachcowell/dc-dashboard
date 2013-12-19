@@ -7,7 +7,7 @@ var express = require('express'),
 	path = require('path'),
 	app = module.exports = express(),
 	server = http.createServer(app),
-	io = socketIo.listen(server),
+	io = socketIo.listen(server,{ log: false }),
 	util = require('util'),
 	Twit = require('twit'),
 	Instagram = require('instagram-node-lib');

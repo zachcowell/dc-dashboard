@@ -8,7 +8,8 @@ angular.module('myApp', [
   'myApp.services',
   'myApp.directives',
   'ngRoute',
-  'highcharts-ng'
+  'highcharts-ng',
+  'ngSocket'
 ]).
 config(function ($routeProvider, $locationProvider) {
   $routeProvider.
@@ -25,4 +26,6 @@ config(function ($routeProvider, $locationProvider) {
     });
 
   $locationProvider.html5Mode(true);
+}).run(function (socket) {
+  socket.forward('error');
 });
