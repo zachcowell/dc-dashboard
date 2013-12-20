@@ -40,7 +40,7 @@ var TwitterWorker = function () {
 	var stream = T.stream('statuses/filter', { locations: DC })
 	stream.on('tweet', function (tweet) { 
 		io.sockets.emit('data',tweet); 
-		if (tweetStack.length > 88 ) tweetStack = tweetStack.splice(1);
+		if (tweetStack.length > 132 ) tweetStack = tweetStack.splice(11);
 		tweetStack.push(tweet);
 	});
 }();

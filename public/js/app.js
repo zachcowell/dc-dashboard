@@ -9,7 +9,8 @@ angular.module('myApp', [
   'myApp.directives',
   'ngRoute',
   'highcharts-ng',
-  'ngSocket'
+  'ngSocket',
+  'leaflet-directive'
 ]).
 config(function ($routeProvider, $locationProvider) {
   $routeProvider.
