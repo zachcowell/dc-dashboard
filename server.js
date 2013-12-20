@@ -1,6 +1,7 @@
 var express = require('express'),
 	routes = require('./routes'),
 	socketIo = require('socket.io'),
+	fs = require('fs'),
 	http = require('http'),
 	path = require('path'),
 	_ = require('underscore'),
@@ -16,13 +17,16 @@ io.sockets.on('connection', function(socket) {
 });
 
 var TwitterWorker = function () {
-	var T = new Twit({ consumer_key:'D8g2hursTwtrTZlgiu7JwA', consumer_secret:'rPraYI7YgWPhrJJxSXtBHHXkJ0UyyooL0CxyRgCtw', access_token:'339061245-ZUr76Hf6QnLt6Vq8XzqGGIpACWDSurvuMiYDuccD', access_token_secret:'GG88Bjiwm378Xh5rk50VZNRiiYby6JcT0Rz8u2vB8'});
-	var DC = ['-77.222069','38.793786','-76.832489','39.030227']; //setup DC bounding box
-	var stream = T.stream('statuses/filter', { locations: DC })
-	stream.on('tweet', function (tweet) { 
-		io.sockets.emit('data',tweet); 
-		if (tweetStack.length > 132 ) tweetStack = tweetStack.splice(11);
-		tweetStack.push(tweet);
+	fs.readFile('./misc/twitter-credentials.json', 'utf8', function (err, data) { 
+		var credentials = JSON.parse(data); 
+		var T = new Twit(credentials);
+		var DC = ['-77.222069','38.793786','-76.832489','39.030227']; //setup DC bounding box
+		var stream = T.stream('statuses/filter', { locations: DC })
+		stream.on('tweet', function (tweet) { 
+			io.sockets.emit('data',tweet); 
+			if (tweetStack.length > 132 ) tweetStack = tweetStack.splice(11);
+			tweetStack.push(tweet);
+		});
 	});
 }();
 
