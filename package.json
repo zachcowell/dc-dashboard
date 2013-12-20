@@ -9,6 +9,7 @@
         "twitter" : "latest",
         "socket.io" : "latest",
         "mongoose" : "latest",
-        "underscore" : "latest"
+        "underscore" : "latest",
+        "twit" : "latest"
     }
 }
