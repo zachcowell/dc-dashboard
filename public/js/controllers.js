@@ -4,6 +4,20 @@
 
 angular.module('myApp.controllers', []).
   controller('MainCtrl', function ($scope, socket, $routeParams, $http) {
+      var collectionSplice = function (collection,lengthCheck,margin){
+        if (collection.length > lengthCheck) return collection.splice(margin);
+        else return collection;
+      };
+
+      var markerMaker = function(tweet) {
+        return [
+          '<a href="http://twitter.com/',tweet.user.screen_name,'">',
+              tweet.user.screen_name,
+          '</a> :',
+          tweet.text
+        ].join('');
+      }
+
       $scope.tweets=[];
       $scope.markers = [];
       $scope.dc = { lat: 38.891121, lng: -77.041481, zoom: 10 };
@@ -16,21 +30,20 @@ angular.module('myApp.controllers', []).
 
       socket.on('data',function(data){ 
         $scope.tweets.push(data);
-        if ($scope.tweets.length > 121 ) $scope.tweets = $scope.tweets.splice(11);
-        //console.log(data.user.profile_image_url);
+        $scope.tweets = collectionSplice($scope.tweets,121,11);
         if (data.coordinates != null){
           $scope.markers.push({
                   lat: data.coordinates.coordinates[1],
                   lng: data.coordinates.coordinates[0],
-                  message: "<strong>"+data.user.screen_name+"</strong>",
+                  message: markerMaker(data),
                   draggable: false
             });
+          $scope.markers = collectionSplice($scope.markers,121,11);
         }
       });
 
       $scope.changeTweetDisplay = function(tweet) { 
         $scope.tweetDisplay = tweet.text; 
         $scope.user = '@' + tweet.user.screen_name + ' in ' + tweet.place.full_name;
-        
       };
   });
