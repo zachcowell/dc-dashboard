@@ -20,6 +20,7 @@ angular.module('myApp.controllers', []).
 
       $scope.tweets=[];
       $scope.markers = [];
+      $scope.motown = { lat: 39.627816, lng: -79.956317, zoom: 10 };
       $scope.dc = { lat: 38.891121, lng: -77.041481, zoom: 10 };
       $scope.mapDefaults = {
         tileLayer: "http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png",

@@ -21,6 +21,7 @@ var TwitterWorker = function () {
 		var credentials = JSON.parse(data); 
 		var T = new Twit(credentials);
 		var DC = ['-77.222069','38.793786','-76.832489','39.030227']; //setup DC bounding box
+		var motown = ['-80.5155','39.1961','-79.2835','39.9767'];
 		var stream = T.stream('statuses/filter', { locations: DC })
 		stream.on('tweet', function (tweet) { 
 			io.sockets.emit('data',tweet); 

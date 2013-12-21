@@ -23,7 +23,7 @@ block body
                         small {{user}}
             .col-6.col-sm-6.col-lg-6
                 a(ng-repeat='t in tweets' href='https://twitter.com/{{t.user.screen_name}}' target='_blank')
-                    img(src='{{t.user.profile_image_url}}' ng-mouseover='changeTweetDisplay(t)' class='fade-in one')
+                    img(ng-src='{{t.user.profile_image_url}}' ng-mouseover='changeTweetDisplay(t)' class='fade-in one')
             .col-6.col-sm-6.col-lg-6
                 leaflet(width='100%' height='530px' center='dc' markers='markers')
 
