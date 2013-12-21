@@ -3,6 +3,7 @@
     "description": "DC Dashboard",
     "version": "0.0.1",
     "private": true,
+    "main" : "server.js",
     "dependencies": {
         "express": "latest",
         "jade": "latest",
@@ -11,5 +12,9 @@
         "mongoose" : "latest",
         "underscore" : "latest",
         "twit" : "latest"
-    }
+    }, 
+    "repository": {
+    "type": "git",
+    "url": "https://github.com/zachcowell/dc-dashboard.git"
+  }
 }
