@@ -45,15 +45,6 @@ angular.module('myApp.controllers', []).
       $scope.changeTweetDisplay = function(tweet) { 
         $scope.tweetDisplay = tweet.text; 
         $scope.user = '@' + tweet.user.screen_name + ' in ' + tweet.place.full_name;
-        if (tweet.coordinates != null){
-          $scope.markers.highlightMarker = {
-                    lat: tweet.coordinates.coordinates[1],
-                    lng: tweet.coordinates.coordinates[0],
-                    message: markerMaker(tweet),
-                    draggable: false,
-                    focus: true
-              };
-        }
       };
   }).
   controller('ChatCtrl', function ($scope, socket, $routeParams, $http) {
