@@ -5,7 +5,6 @@
 angular.module('myApp', [
   'myApp.controllers',
   'ngRoute',
-  'highcharts-ng',
   'ngSocket',
   'leaflet-directive'
 ]).
