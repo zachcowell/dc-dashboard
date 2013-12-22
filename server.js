@@ -12,9 +12,16 @@ var express = require('express'),
 
 var tweetStack = [];
 
+
+io.configure(function () { 
+  io.set("transports", ["xhr-polling"]); 
+  io.set("polling duration", 10); 
+});
+
 io.sockets.on('connection', function(socket) { 
     _.each(tweetStack, function(t){ socket.emit('data',t); });
 });
+
 
 var TwitterWorker = function () {
 	fs.readFile('./misc/twitter-credentials.json', 'utf8', function (err, data) { 
