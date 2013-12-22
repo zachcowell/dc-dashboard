@@ -8,4 +8,29 @@ html(ng-app="myApp")
     link(rel='stylesheet', href='/css/app.css')
     link(rel='stylesheet', href='http://cdn.leafletjs.com/leaflet-0.7/leaflet.css')
   body
-    block body
+    .navbar.navbar-default.navbar-fixed-top
+        .navbar-header
+            a.navbar-brand(href='#') DC Dashboard
+        .navbar-collapse.collapse
+            ul.nav.navbar-nav
+                li.active
+                    a(href='#') Home
+                li
+                    a(href='#') About
+                li
+                    a(href='#') Contact
+    .container
+        block content
+
+    script(src='js/underscore-min.js')
+    script(src='https://ajax.googleapis.com/ajax/libs/angularjs/1.2.6/angular.min.js')
+    script(src='js/angular-route.min.js')
+    script(src='http://cdn.leafletjs.com/leaflet-0.7/leaflet.js')
+    script(src='js/angular-leaflet-directive.js')
+    script(src='js/jquery.js')
+    script(src='js/highcharts.js')
+    script(src='js/highcharts-ng.min.js')
+    script(src='js/socket.io.js')
+    script(src='js/socket.js')
+    script(src='js/app.js')
+    script(src='js/controllers.js')
