@@ -30,7 +30,6 @@ angular.module('myApp.controllers', []).
       };
 
       socket.on('data',function(data){ 
-        console.log('on');
         $scope.tweets.push(data);
         $scope.tweets = collectionSplice($scope.tweets,121,11);
         if (data.coordinates != null){
@@ -50,11 +49,5 @@ angular.module('myApp.controllers', []).
       };
   }).
   controller('HeaderCtrl', function ($scope, $location) {
-      $scope.activeFace = true;
-      $scope.isActive = function () { 
-        console.log('what');
-        return true;
-        //console.log(viewLocation);
-        //return viewLocation === $location.path();
-    };
+
   });
