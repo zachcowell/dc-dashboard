@@ -8,18 +8,18 @@ html(ng-app="myApp")
     link(rel='stylesheet', href='/css/app.css')
     link(rel='stylesheet', href='http://cdn.leafletjs.com/leaflet-0.7/leaflet.css')
   body
-    .navbar.navbar-default.navbar-fixed-top
-        .navbar-header
-            a.navbar-brand(href='#') LowCrow
-        .navbar-collapse.collapse
-            ul.nav.navbar-nav
-                li.active
-                    a(href='/') Home
-                li
-                    a(href='about') About
-                li
-                    a(href='contact') Contact
     .container
+        .masthead(ng-controller='HeaderCtrl')
+        h3.text-muted Low Crow
+        ul.nav.nav-justified
+            li
+                a(href='/') Home
+            li  
+                a(href='/') Services
+            li
+                a(href='about') About
+            li
+                a(href='contact') Contact
         block content
 
     script(src='js/underscore-min.js')

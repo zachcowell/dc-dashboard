@@ -47,6 +47,12 @@ angular.module('myApp.controllers', []).
         $scope.user = '@' + tweet.user.screen_name + ' in ' + tweet.place.full_name;
       };
   }).
-  controller('ChatCtrl', function ($scope, socket, $routeParams, $http) {
-  
+  controller('HeaderCtrl', function ($scope, $location) {
+      $scope.activeFace = true;
+      $scope.isActive = function () { 
+        console.log('what');
+        return true;
+        //console.log(viewLocation);
+        //return viewLocation === $location.path();
+    };
   });
