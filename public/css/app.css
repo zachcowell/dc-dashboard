@@ -29,3 +29,9 @@ body { padding-top: 50px; }
 -moz-animation-delay: 0.7s;
 animation-delay: 0.7s;
 }
+
+/* custom style for the jumbotron in the about page */
+.jumbotron {
+  text-align: center;
+  background-color: transparent;
+}

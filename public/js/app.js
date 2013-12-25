@@ -11,11 +11,14 @@ angular.module('myApp', [
 config(function ($routeProvider, $locationProvider) {
   $routeProvider.
     when('/about', {
-      templateUrl: 'partials/partial1'
+      templateUrl: 'partials/about'
     }).
-    when('/view2', {
-      templateUrl: 'partials/partial2',
-      controller: 'MyCtrl2'
+    when('/contact', {
+      templateUrl: 'partials/contact'
+    }).
+    when('/', {
+      templateUrl: 'partials/main',
+      controller: 'MainCtrl'
     }).
     otherwise({
       redirectTo: '/'
