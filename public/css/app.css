@@ -117,3 +117,5 @@ body {
     padding-right: 0;
   }
 }
+
+ .center-svg { display: block; margin: auto }

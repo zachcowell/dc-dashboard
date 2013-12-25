@@ -18,8 +18,9 @@ angular.module('myApp.controllers', []).
         ].join('');
       }
 
-      $scope.tweets=[];
+      $scope.tweets= [];
       $scope.markers = [];
+
       $scope.dc = { lat: 38.891121, lng: -77.041481, zoom: 10 };
       $scope.mapDefaults = {
         tileLayer: "http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png",
@@ -29,6 +30,7 @@ angular.module('myApp.controllers', []).
       };
 
       socket.on('data',function(data){ 
+        console.log('on');
         $scope.tweets.push(data);
         $scope.tweets = collectionSplice($scope.tweets,121,11);
         if (data.coordinates != null){
