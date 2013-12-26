@@ -16,9 +16,7 @@ io.configure(function () {
   io.set("polling duration", 10); 
 });
 
-io.sockets.on('connection', function(socket) { 
-    _.each(tweetStack, function(t){ socket.emit('data',t); });
-});
+
 
 app.configure(function(){
 	app.set('env','production');
@@ -35,6 +33,9 @@ if (app.get('env') === 'development') { app.use(express.errorHandler()); }
 if (app.get('env') === 'production') { };
 
 var TwitterBlock = function(){
+	io.sockets.on('connection', function(socket) { 
+    	_.each(tweetStack, function(t){ socket.emit('tweetmap',t); });
+	});
 	var locations = {
 		DC : { locations: ['-77.222069','38.793786','-76.832489','39.030227'] },
 		planetEarth : { locations: ['-180','-90','180','90'] }

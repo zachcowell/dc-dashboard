@@ -29,7 +29,7 @@ angular.module('myApp.controllers', []).
         scrollWheelZoom: false
       };
 
-      socket.on('data',function(data){ 
+      socket.on('tweetmap',function(data){ 
         $scope.tweets.push(data);
         $scope.tweets = collectionSplice($scope.tweets,121,11);
         if (data.coordinates != null){
