@@ -34,14 +34,23 @@ app.configure(function(){
 if (app.get('env') === 'development') { app.use(express.errorHandler()); }
 if (app.get('env') === 'production') { };
 
-
-var stream = twitterworker.getStream(app.get('env'));
-stream.on('tweet', function (tweet) { 
-            io.sockets.emit('data',tweet); 
-            if (tweetStack.length > 132 ) tweetStack = tweetStack.splice(11);
-            tweetStack.push(tweet);
-});
-
+var TwitterBlock = function(){
+	var locations = {
+		DC : { locations: ['-77.222069','38.793786','-76.832489','39.030227'] },
+		planetEarth : { locations: ['-180','-90','180','90'] }
+	}
+	var stream = twitterworker.getStream(app.get('env'),locations.DC);
+	var tweetMapping = function(tweet){
+		io.sockets.emit('tweetmap',tweet); 
+		if (tweetStack.length > 132 ) tweetStack = tweetStack.splice(11);
+		tweetStack.push(tweet);
+	}
+	var tweetLogging = function(tweet){
+		console.log(tweet.text);
+	}
+	//stream.on('tweet', tweetMapping);
+	stream.on('tweet', tweetLogging);
+}();
 
 app.get('/', routes.index);
 app.get('/partials/:name', routes.partials);

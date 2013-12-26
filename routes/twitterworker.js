@@ -15,10 +15,12 @@ var twitterCredentials = {
 	}
 };
 
-exports.getStream = function (env) {
-	var T;
-	if (env == 'development') T = new Twit(twitterCredentials.dev);
-	else T = new Twit(twitterCredentials.prod);
-	var DC = ['-77.222069','38.793786','-76.832489','39.030227']; //setup DC bounding box
-	return T.stream('statuses/filter', { locations: DC });
+var getTwitterCredentials = function(env){
+	if (env == 'development') return new Twit(twitterCredentials.dev);
+	else return new Twit(twitterCredentials.prod);
+}
+
+exports.getStream = function (env, inputParams) {
+	var T = getTwitterCredentials(env);
+	return T.stream('statuses/filter', inputParams);
 };
