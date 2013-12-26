@@ -49,7 +49,7 @@ var TwitterBlock = function(){
 		console.log(tweet.text);
 	}
 	//stream.on('tweet', tweetMapping);
-	stream.on('tweet', tweetLogging);
+	stream.on('tweet', tweetMapping);
 }();
 
 app.get('/', routes.index);
