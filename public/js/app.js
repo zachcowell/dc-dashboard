@@ -16,6 +16,10 @@ config(function ($routeProvider, $locationProvider) {
     when('/contact', {
       templateUrl: 'partials/contact'
     }).
+    when('/near', {
+      templateUrl: 'partials/near',
+      controller: 'NearCtrl'
+    }).
     when('/', {
       templateUrl: 'partials/main',
       controller: 'MainCtrl'

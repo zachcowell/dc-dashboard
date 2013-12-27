@@ -1,4 +1,5 @@
-var Twit = require('twit');
+var Twit = require('twit'),
+	_ = require('underscore');
 
 var twitterCredentials = { 
 	dev : { 
@@ -24,3 +25,11 @@ exports.getStream = function (env, inputParams) {
 	var T = getTwitterCredentials(env);
 	return T.stream('statuses/filter', inputParams);
 };
+
+exports.getSearch = function(env, inputParams, mapFunc){
+	var T = getTwitterCredentials(env);
+	T.get('search/tweets', inputParams, function(err, reply) { 
+		var sortedReplies = _.uniq(reply.statuses,function(item) { return item.user.id; });
+		_.map(sortedReplies,function(tweet){  mapFunc(tweet); });
+	});
+}
