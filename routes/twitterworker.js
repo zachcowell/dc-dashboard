@@ -33,3 +33,15 @@ exports.getSearch = function(env, inputParams, mapFunc){
 		_.map(sortedReplies,function(tweet){  mapFunc(tweet); });
 	});
 }
+
+exports.getUsersNearMe = function(env){
+	return function(req, res) {
+		var T = getTwitterCredentials(env);
+		var searchParams = { q: req.params.input, count: 100 };
+		T.get('search/tweets', searchParams, function(err, reply) { 
+			if (err) return;
+			var sortedReplies = _.uniq(reply.statuses,function(item) { return item.user.id; });
+			res.send(sortedReplies);
+		});
+	}
+}
