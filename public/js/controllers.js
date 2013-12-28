@@ -65,6 +65,11 @@ angular.module('myApp.controllers', []).
 
       $scope.markers = [];
       $scope.tweets= [];
+      $scope.geocode = {
+        lat : 38.891121,
+        lng : -77.041481,
+        distance: { val: 0.2, unit: 'mi' }
+      };
       var tweetMarker = L.AwesomeMarkers.icon({ icon: 'twitter', prefix: 'fa', markerColor: 'cadetblue' });
       
       $scope.dc = { lat: 38.891121, lng: -77.041481, zoom: 12 };
@@ -78,7 +83,7 @@ angular.module('myApp.controllers', []).
       $scope.retrieveData = function(){
         $http({
           method: 'GET',
-          url: '/api/local/geocode:38.877831,-77.019256,0.2km'
+          url: '/api/local/geocode:'+$scope.geocode.lat+','+$scope.geocode.lng+','+$scope.geocode.distance.val+$scope.geocode.distance.unit
         }).
         success(function (data, status, headers, config) {
           _.each(data,function(t) { 
