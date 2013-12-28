@@ -19,7 +19,7 @@ io.configure(function () {
 
 
 app.configure(function(){
-	app.set('env','development');
+	app.set('env','production');
 	app.set('port', process.env.PORT || 3000);
 	app.set('views', __dirname + '/views');
 	app.set('view engine', 'jade');

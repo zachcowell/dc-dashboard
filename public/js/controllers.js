@@ -20,7 +20,8 @@ angular.module('myApp.controllers', []).
 
       $scope.tweets= [];
       $scope.markers = [];
-
+      var tweetMarker = L.AwesomeMarkers.icon({ icon: 'twitter', prefix: 'fa', markerColor: 'blue' });
+      
       $scope.dc = { lat: 38.891121, lng: -77.041481, zoom: 10 };
       $scope.mapDefaults = {
         tileLayer: "http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png",
@@ -37,7 +38,8 @@ angular.module('myApp.controllers', []).
                   lat: data.coordinates.coordinates[1],
                   lng: data.coordinates.coordinates[0],
                   message: markerMaker(data),
-                  draggable: false
+                  draggable: false,
+                  icon: tweetMarker
             });
           $scope.markers = collectionSplice($scope.markers,121,11);
         }
@@ -98,9 +100,7 @@ angular.module('myApp.controllers', []).
         $scope.$on("leafletDirectiveMap.click", function(event, args){
             var leafEvent = args.leafletEvent;
             var userMarker = L.AwesomeMarkers.icon({ icon: 'star', prefix: 'glyphicon', markerColor: 'red' });
-            var markerObj = { lat: leafEvent.latlng.lat, lng: leafEvent.latlng.lng, icon: userMarker };
-                        
-            
+            var markerObj = { lat: leafEvent.latlng.lat, lng: leafEvent.latlng.lng, icon: userMarker };                        
         });
       
 
