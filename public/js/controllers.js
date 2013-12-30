@@ -65,6 +65,7 @@ angular.module('myApp.controllers', []).
 
       $scope.markers = [];
       $scope.tweets= [];
+      
       $scope.geocode = {
         lat : 38.891121,
         lng : -77.041481,
@@ -89,6 +90,7 @@ angular.module('myApp.controllers', []).
           _.each(data,function(t) { 
             $scope.tweets.push(t); 
             if (t.coordinates != null){
+            
             $scope.markers.push({
                   lat: t.coordinates.coordinates[1],
                   lng: t.coordinates.coordinates[0],
@@ -100,14 +102,18 @@ angular.module('myApp.controllers', []).
           });
         }).
         error(function (data, status, headers, config) { });
-      }();
+      };
 
         $scope.$on("leafletDirectiveMap.click", function(event, args){
             var leafEvent = args.leafletEvent;
             var userMarker = L.AwesomeMarkers.icon({ icon: 'star', prefix: 'glyphicon', markerColor: 'red' });
-            var markerObj = { lat: leafEvent.latlng.lat, lng: leafEvent.latlng.lng, icon: userMarker };                        
-        });
-      
-
-      
+            var markerObj = { lat: leafEvent.latlng.lat, lng: leafEvent.latlng.lng, distance: { val: 0.2, unit: 'mi' }, icon: userMarker };                        
+            $scope.markers.push(markerObj);
+            $scope.geocode = markerObj;
+            if ($scope.markers[$scope.markers.length - 1] != undefined){
+              if ($scope.markers[$scope.markers.length-1].icon == userMarker){
+                $scope.markers = $scope.markers.splice($scope.markers.length-1,1);
+              }
+            }
+        });      
   });
