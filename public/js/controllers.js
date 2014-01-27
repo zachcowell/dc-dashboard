@@ -53,6 +53,31 @@ angular.module('myApp.controllers', []).
   controller('HeaderCtrl', function ($scope, $location) {
 
   }).
+  controller('HistoryCtrl', function ($scope, $location) {
+  $scope.radioModel = 'London';
+
+  $scope.today = function() { $scope.dte = new Date(); };
+  $scope.today();
+  $scope.dts = new Date();
+  $scope.dts.setDate($scope.dts.getDate()-5);
+  $scope.showWeeks = true;
+
+  $scope.open = function($event,$openscope) {
+    $event.preventDefault();
+    $event.stopPropagation();
+    $openscope = true;
+  };
+
+
+  $scope.dateOptions = {
+    'year-format': "'yy'",
+    'starting-day': 1
+  };
+
+  $scope.format = 'dd-MMMM-yyyy';
+
+
+  }).
   controller('NearCtrl', function ($scope, $routeParams, $http) {
       var markerMaker = function(tweet) {
         return [

@@ -6,7 +6,8 @@ angular.module('myApp', [
   'myApp.controllers',
   'ngRoute',
   'ngSocket',
-  'leaflet-directive'
+  'leaflet-directive',
+  'ui.bootstrap'
 ]).
 config(function ($routeProvider, $locationProvider) {
   $routeProvider.
@@ -19,6 +20,10 @@ config(function ($routeProvider, $locationProvider) {
     when('/near', {
       templateUrl: 'partials/near',
       controller: 'NearCtrl'
+    }).
+    when('/history', {
+      templateUrl: 'partials/history',
+      controller: 'HistoryCtrl'
     }).
     when('/', {
       templateUrl: 'partials/main',

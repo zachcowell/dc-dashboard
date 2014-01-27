@@ -1,0 +1,23 @@
+div(ng-controller='HistoryCtrl')
+    .row
+        .col-5.col-sm-5.col-lg-5
+            h3 Scope
+            .btn-group
+                button.btn.btn-lg.btn-primary(type='button' ng-model='radioModel' btn-radio='"Cairo"') Cairo
+                button.btn.btn-lg.btn-primary(type='button' ng-model='radioModel' btn-radio='"London"') London
+                button.btn.btn-lg.btn-primary(type='button' ng-model='radioModel' btn-radio='"Moscow"') Moscow
+                button.btn.btn-lg.btn-danger(type='button' ng-model='radioModel' btn-radio='"Worldwide"') Worldwide
+        .col-4.col-sm-4.col-lg-4
+            h3 Date Range
+            p.input-group
+              input.form-control(type='text', datepicker-popup='{{format}}', ng-model='dts', is-open='openS', min='minDate', max='\'2015-06-22\'', datepicker-options='dateOptions', date-disabled='disabled(date, mode)', ng-required='true', close-text='Close')
+              span.input-group-btn
+                button.btn.btn-default(ng-click='open($event,openS)')
+                  i.glyphicon.glyphicon-calendar
+            p.input-group
+              input.form-control(type='text', datepicker-popup='{{format}}', ng-model='dte', is-open='openE', min='minDate', max='\'2015-06-22\'', datepicker-options='dateOptions', date-disabled='disabled(date, mode)', ng-required='true', close-text='Close')
+              span.input-group-btn
+                button.btn.btn-default(ng-click='open($event,openE)')
+                  i.glyphicon.glyphicon-calendar
+     .row
+        .col-5.col-sm-5.col-lg-5         
