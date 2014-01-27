@@ -6,6 +6,7 @@ angular.module('myApp', [
   'myApp.controllers',
   'ngRoute',
   'ngSocket',
+  'myApp.filters',
   'leaflet-directive',
   'ui.bootstrap'
 ]).

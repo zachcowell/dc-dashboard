@@ -20,4 +20,24 @@ div(ng-controller='HistoryCtrl')
                 button.btn.btn-default(ng-click='open($event,openE)')
                   i.glyphicon.glyphicon-calendar
      .row
-        .col-5.col-sm-5.col-lg-5         
+        h2.text-center Results
+        hr
+        .col-12.col-sm-12.col-lg-12
+            table.table
+                thead
+                    tr
+                        th #
+                        th User
+                        th Text
+                        th Coordinates
+                        th Locale
+                        th Distance from POI
+                tbody
+                    tr(ng-repeat='t in tweets | orderBy:"created_at":true | startFrom:currentPage*maxSize | limitTo:maxSize')
+                        td {{$index+1}}
+                        td {{t.user.screen_name}}
+                        td {{t.text}}
+                        td {{t.coordinates.coordinates}}
+                        td {{t.place.full_name}}
+            pagination(total-items='tweets.length' page='currentPage' max-size='7' class='pagination-lg')
+

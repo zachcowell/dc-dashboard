@@ -53,9 +53,26 @@ angular.module('myApp.controllers', []).
   controller('HeaderCtrl', function ($scope, $location) {
 
   }).
-  controller('HistoryCtrl', function ($scope, $location) {
+  controller('HistoryCtrl', function ($scope,$http, $location) {
   $scope.radioModel = 'London';
+  $scope.tweets = [];
+  $scope.totalItems = $scope.tweets.length;
+  $scope.currentPage = 0;
+  $scope.maxSize = 10;
 
+  $scope.retrieveData = function(){
+    $http({
+      method: 'GET',
+      url: '/api/list'
+    }).
+    success(function (data, status, headers, config) {
+      _.each(data,function(t) { $scope.tweets.push(t); });
+
+    }).
+    error(function (data, status, headers, config) { });
+  };
+
+  $scope.retrieveData();
   $scope.today = function() { $scope.dte = new Date(); };
   $scope.today();
   $scope.dts = new Date();

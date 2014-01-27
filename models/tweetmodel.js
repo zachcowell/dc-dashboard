@@ -2,7 +2,9 @@ var mongoose = require('mongoose')
    ,Schema = mongoose.Schema;
  
 var tweetNameSchema = mongoose.Schema({
-    coordinates: String,
+    coordinates: {
+        coordinates: String
+    },
     created_at: Date,
     current_user_retweet : String,
     //entities
@@ -17,7 +19,20 @@ var tweetNameSchema = mongoose.Schema({
     in_reply_to_user_id: Number,
     in_reply_to_user_id_str: String,
     lang: String,
-    //place
+    place: {
+        attributes: String,
+        bounding_box: {
+            coordinates: String,
+            type: String
+        },
+        country: String,
+        country_code: String,
+        full_name: String,
+        id: String,
+        name: String,
+        place_type: String,
+        url: String
+    },
     possibly_sensitive: Boolean,
     //scopes
     retweet_count: Number,
