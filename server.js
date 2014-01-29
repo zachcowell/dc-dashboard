@@ -70,7 +70,7 @@ var TwitterBlock = function(){
 			if (preserveOnServer) {
 				if (tweetStack.length > 132 ) tweetStack = tweetStack.splice(11);
 				tweetStack.push(tweet);
-				twitterapi.insert(tweet);
+				//twitterapi.insert(tweet);
 			}
 		}
 	}
