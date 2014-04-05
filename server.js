@@ -59,9 +59,9 @@ var TwitterBlock = function(){
 	
 	var stream = twitterworker.getStream(env,
 		{ locations : 
-			locations.london.locations
-			.concat(locations.moscow.locations)
-			.concat(locations.cairo.locations)
+			locations.DC.locations
+			//.concat(locations.moscow.locations)
+			//.concat(locations.cairo.locations)
 		});
 	
 	var tweetMapping = function(socketName, preserveOnServer){
