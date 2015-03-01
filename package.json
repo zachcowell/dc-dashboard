@@ -1,0 +1,15 @@
+{
+  "name": "link-hijacker",
+  "version": "0.0.0",
+  "description": "Hijack links n shit",
+  "private": true,
+  "main": "index.js",
+  "dependencies": {
+    "express": "latest",
+    "mysql": "^2.5.5",
+    "sentiment": "^1.0.1",
+    "twit": "latest",
+    "twitter": "latest",
+    "underscore": "latest"
+  }
+}
