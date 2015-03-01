@@ -20,6 +20,10 @@ angular.module('myApp.controllers', []).
 
       $scope.tweets= [];
       $scope.markers = [];
+      $scope.sentiment = {
+        count:0,
+        total:0
+      }
       var tweetMarker = L.AwesomeMarkers.icon({ icon: 'twitter', prefix: 'fa', markerColor: 'blue' });
       
       $scope.dc = { lat: 38.891121, lng: -77.041481, zoom: 10 };
@@ -32,6 +36,10 @@ angular.module('myApp.controllers', []).
 
       socket.on('tweetmap',function(data){ 
         $scope.tweets.push(data);
+        $scope.sentiment.count++;
+        $scope.sentiment.total+= data.sentiment.score;
+
+        console.log($scope.sentiment.total / $scope.sentiment.count);
         $scope.tweets = collectionSplice($scope.tweets,121,11);
         if (data.coordinates != null){
           $scope.markers.push({

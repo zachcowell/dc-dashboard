@@ -1,14 +1,16 @@
-var express = require('express'),
-	routes = require('./routes'),
-	path = require('path'),
-	_ = require('underscore'),
-	mongoose = require('mongoose'),
-	app = module.exports = express(),
-	server = require('http').createServer(app),
-	io = require('socket.io').listen(server,{ log: false }),
-	Twit = require('twit'),
-	twitterworker = require('./routes/twitterworker'),
-	twitterapi= require('./routes/twitterapi');
+var express = require('express');
+var routes = require('./routes');
+var path = require('path');
+var _ = require('underscore');
+var mongoose = require('mongoose');
+var app = module.exports = express();
+var server = require('http').createServer(app);
+var io = require('socket.io').listen(server,{ log: false });
+var Twit = require('twit');
+var twitterworker = require('./routes/twitterworker');
+var twitterapi= require('./routes/twitterapi');
+var sentiment = require('sentiment');
+
 
 var tweetStack = [];
 
@@ -21,7 +23,7 @@ io.configure(function () {
 
 
 app.configure(function(){
-	app.set('env','production');
+	app.set('env','development');
 	app.set('port', process.env.PORT || 3000);
 	app.set('views', __dirname + '/views');
 	app.set('view engine', 'jade');
@@ -66,6 +68,7 @@ var TwitterBlock = function(){
 	
 	var tweetMapping = function(socketName, preserveOnServer){
 		return function(tweet){
+			tweet.sentiment = sentiment(tweet.text);
 			io.sockets.emit(socketName,tweet); 
 			if (preserveOnServer) {
 				if (tweetStack.length > 132 ) tweetStack = tweetStack.splice(11);
@@ -85,7 +88,5 @@ app.get('/api/list',twitterapi.list);
 app.get('/api/list/full',twitterapi.bigList);
 app.get('*', routes.index);
 
-server.listen(app.get('port'), function () {
-  console.log('Express server listening on port ' + app.get('port'));
-});
+server.listen(app.get('port'), function () { console.log('Express server listening on port ' + app.get('port')); });
 
