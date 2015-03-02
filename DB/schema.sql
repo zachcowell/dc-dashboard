@@ -7,9 +7,10 @@ CREATE TABLE product
 (
 	id BIGINT NOT NULL AUTO_INCREMENT,
 	url_id BIGINT,
+	asin VARCHAR(25),
 	times_seen INTEGER,
-	first_seen DATETIME,
-	last_seen DATETIME,
+	first_seen DATETIME(0),
+	last_seen DATETIME(0),
 	PRIMARY KEY (id),
 	INDEX IXFK_product_url (url_id ASC)
 
@@ -21,8 +22,8 @@ CREATE TABLE tweet
 (
 	id BIGINT NOT NULL,
 	user_id BIGINT,
-	text VARCHAR(150),
-	created_on DATETIME,
+	tweet_text VARCHAR(150),
+	created_on DATETIME(0),
 	PRIMARY KEY (id),
 	INDEX IXFK_tweet_user (user_id ASC)
 

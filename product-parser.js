@@ -13,16 +13,48 @@ var connection = mysql.createConnection({
 connection.connect();
 
 var insert = function(table,data){
-	var query = connection.query('INSERT IGNORE INTO '+ table +' SET ?', data, function(err, result) {
+	console.log('inserting new')
+	var query = connection.query('INSERT INTO '+ table +' SET ?', data, function(err, result) {
 		if (err) console.log(err);
-		else console.log(result);
+		//else console.log(result);
 	});	
 }
 
-var query = connection.query("select expanded_url from url where expanded_url not in ('http://Amazon.com','http://www.amazon.com/','http://www.amazon.com') and expanded_url like '%amazon.com%'", function(err, result) {
-	console.log('done')
+var query = connection.query("select id,expanded_url from url where expanded_url not in ('http://Amazon.com','http://www.amazon.com/','http://www.amazon.com') and expanded_url like '%amazon.com%'", function(err, result) {
 	if (err) console.log(err);
-	else console.log(result);
+	else {
+		var regex = RegExp("http://www.amazon.com/([\\w-]+/)?(dp|gp/product)/(\\w+/)?(\\w{10})");
+		var asinCount= [];
+		_.each(result,function(item){
+			var m = item.expanded_url.match(regex);
+			if (m) { 
+				asinCount.push({asin: m[4], url_id: item.id });
+			}
+		})
+		objArr = _.countBy(objArr,function(x){ return x.asin; })
+		console.log(objArr);
+	}
 });	
 
-var insertProduct = function(tweet){ insert('tweet',tweet); }
+
+var insertProduct = function(){
+	insert('product',product);
+}
+
+// var insertProduct = function(product){ 
+	
+// 	var query = connection.query('select id from product where ?',{asin: product.asin},function(err,result){
+// 		if (result){
+// 			console.log(result);
+// 			//console.log(result)
+// 			if (result.length > 0){
+// 				var updateQuery = connection.query('update product set ?, times_seen = times_seen+1 where ?',[{ last_seen: new Date() },{ id: result[0].id }],function(err,result){
+// 					if (!err) console.log('updating record with no error');
+// 				})
+// 				//console.log(result)
+// 			}
+// 			else insert('product',product); 
+// 		}
+// 		else insert('product',product); 
+// 	})
+// }
