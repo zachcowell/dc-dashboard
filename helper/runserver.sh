@@ -1,0 +1,1 @@
+nohup node crawler.js 0<&- &>/dev/null &
