@@ -8,24 +8,33 @@ var connection = mysql.createConnection({
   user     : 'root',
   password : ''
 });
- 
+var amazonAsinRegex = RegExp("http://www.amazon.com/([\\w-]+/)?(dp|gp/product)/(\\w+/)?(\\w{10})");
 
 connection.connect();
 
-var insert = function(table,data){
-	var query = connection.query('INSERT IGNORE INTO '+ table +' SET ?', data, function(err, result) {
-		if (err) console.log(err);
-		else console.log(result);
-	});	
+var insert = function(table,data,callback){
+	callback = callback || function(err,result){ console.log(result.insertId); }
+	var query = connection.query('INSERT IGNORE INTO '+ table +' SET ?', data, callback);	
 }
 
 var insertTweet = function(tweet){ insert('tweet',tweet); }
 var insertUser = function(user){ insert('user',user); }
-var insertUrl = function(url){ insert('url',url); }
-
+var insertProduct = function(product){ insert('product',product); }
+var insertUrl = function(url){ 
+	var callback = function(err,result){
+		var m = url.expanded_url.match(amazonAsinRegex);
+		if (m){
+			insertProduct({
+				url_id: result.insertId,
+				asin: m[4]
+			})
+		}
+	}
+	insert('url',url,callback); 
+}
 
 var searchCallback = function(tweet){
-	console.log('occurrence');
+	console.log(tweet);
 	var user = {
 		id: tweet.user.id,
 		screen_name: tweet.user.screen_name,

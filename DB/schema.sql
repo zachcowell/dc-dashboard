@@ -1,16 +1,10 @@
 SET FOREIGN_KEY_CHECKS=0;
 
-
-
-
 CREATE TABLE product
 (
 	id BIGINT NOT NULL AUTO_INCREMENT,
 	url_id BIGINT,
 	asin VARCHAR(25),
-	times_seen INTEGER,
-	first_seen DATETIME(0),
-	last_seen DATETIME(0),
 	PRIMARY KEY (id),
 	INDEX IXFK_product_url (url_id ASC)
 
