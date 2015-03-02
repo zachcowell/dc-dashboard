@@ -13,10 +13,8 @@ var connection = mysql.createConnection({
 connection.connect();
 
 var insert = function(table,data){
-	console.log('inserting new')
 	var query = connection.query('INSERT INTO '+ table +' SET ?', data, function(err, result) {
 		if (err) console.log(err);
-		//else console.log(result);
 	});	
 }
 
@@ -31,13 +29,25 @@ var query = connection.query("select id,expanded_url from url where expanded_url
 				asinCount.push({asin: m[4], url_id: item.id });
 			}
 		})
-		objArr = _.countBy(objArr,function(x){ return x.asin; })
-		console.log(objArr);
+		asinCount = _.countBy(asinCount,function(x){ return x.asin; })
+		_.each(result,function(item){
+			var m = item.expanded_url.match(regex);
+			if (m) { 
+				insertProduct({
+					url_id: item.id,
+					times_seen: asinCount[m[4]],
+					first_seen: new Date(),
+					last_seen: new Date(),
+					asin: m[4]
+				})
+
+			}
+		})
 	}
 });	
 
 
-var insertProduct = function(){
+var insertProduct = function(product){
 	insert('product',product);
 }
 
