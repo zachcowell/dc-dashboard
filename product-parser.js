@@ -33,5 +33,6 @@ var query = connection.query("select id,expanded_url from url where expanded_url
 			})
 		}	
 	})
+	console.log('Done inserting');
 });	
 
