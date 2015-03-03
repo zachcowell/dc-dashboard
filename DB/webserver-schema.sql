@@ -4,7 +4,7 @@ CREATE TABLE product
 	tweet_id BIGINT,
 	user_id BIGINT,
 	tweet_text VARCHAR(150),
-	tweet_created_on DATETIME(0),
+	tweet_created_on DATETIME,
 	user_screen_name VARCHAR(50),
 	user_name VARCHAR(50)
 ) 

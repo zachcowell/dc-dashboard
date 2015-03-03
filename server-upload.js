@@ -9,10 +9,10 @@ var sourceConnection = mysql.createConnection({
 });
 
 var destinationConnection = mysql.createConnection({
-  host     : 'localhost',
-  database : 'stageLinks',
-  user     : 'root',
-  password : ''
+  host     : 'us-cdbr-iron-east-01.cleardb.net',
+  database : 'heroku_8a6d4346d2b8beb',
+  user     : 'bb367d14d59350',
+  password : '248b7a23'
 });
 
 sourceConnection.connect();
@@ -34,10 +34,13 @@ var query = sourceConnection.query('select p.asin "product_asin", t.id "tweet_id
 			]);
 		});
 
-		var uploadQuery = destinationConnection.query('INSERT INTO product (product_asin,tweet_id,user_id,tweet_text,tweet_created_on,user_screen_name,user_name) VALUES ?', [productArray], function(err,result){
-			if (err) console.log(err);
-			else console.log('data upload complete.');
+		var deleteQuery = destinationConnection.query('DELETE FROM product',function(err,result){
+			var uploadQuery = destinationConnection.query('INSERT INTO product (product_asin,tweet_id,user_id,tweet_text,tweet_created_on,user_screen_name,user_name) VALUES ?', [productArray], function(err,result){
+				if (err) console.log(err);
+				else console.log('data upload complete.');
+				sourceConnection.end();
+				destinationConnection.end();
+			});	
 		});
 	}
 });	
-
