@@ -1,13 +1,9 @@
 var Twit = require('twit');
-var T = new Twit({consumer_key: "D8g2hursTwtrTZlgiu7JwA", consumer_secret: "rPraYI7YgWPhrJJxSXtBHHXkJ0UyyooL0CxyRgCtw", access_token: "339061245-ZUr76Hf6QnLt6Vq8XzqGGIpACWDSurvuMiYDuccD", access_token_secret: "GG88Bjiwm378Xh5rk50VZNRiiYby6JcT0Rz8u2vB8"});
+var config 		= require('./config/config');
+var T = new Twit(config.twitter);
 var _ = require('underscore');
 var mysql      = require('mysql');
-var connection = mysql.createConnection({
-  host     : 'localhost',
-  database : 'links',
-  user     : 'root',
-  password : ''
-});
+var connection = mysql.createConnection(config.database.local);
 var amazonAsinRegex = RegExp("http://www.amazon.com/([\\w-]+/)?(dp|gp/product)/(\\w+/)?(\\w{10})");
 
 connection.connect();

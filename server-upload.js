@@ -1,19 +1,8 @@
 var mysql      	= require('mysql');
 var _ 			= require('underscore');
-
-var sourceConnection = mysql.createConnection({
-  host     : 'localhost',
-  database : 'links',
-  user     : 'root',
-  password : ''
-});
-
-var destinationConnection = mysql.createConnection({
-  host     : 'us-cdbr-iron-east-01.cleardb.net',
-  database : 'heroku_8a6d4346d2b8beb',
-  user     : 'bb367d14d59350',
-  password : '248b7a23'
-});
+var config 		= require('./config/config');
+var sourceConnection = mysql.createConnection(config.database.local);
+var destinationConnection = mysql.createConnection(config.database.prod);
 
 sourceConnection.connect();
 destinationConnection.connect();
