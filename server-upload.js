@@ -40,6 +40,7 @@ var query = sourceConnection.query('select p.asin "product_asin", t.id "tweet_id
 				else console.log('data upload complete.');
 				sourceConnection.end();
 				destinationConnection.end();
+				process.exit();
 			});	
 		});
 	}
